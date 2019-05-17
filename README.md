@@ -1,1 +1,1 @@
-# 2018CV--term-project
+# How to Get the Best Group Photo
