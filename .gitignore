@@ -1,0 +1,4 @@
+*.docx
+
+/human_detection/models
+/sample_videos
