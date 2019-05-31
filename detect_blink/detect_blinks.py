@@ -3,13 +3,11 @@
 # python detect_blinks.py --shape-predictor shape_predictor_68_face_landmarks.dat
 
 # import the necessary packages
+import imutils
 from scipy.spatial import distance as dist
-#from imutils.video import FileVideoStream
-#from imutils.video import VideoStream
 from imutils import face_utils
 import numpy as np
 import argparse
-import imutils
 import time
 import dlib
 import cv2
@@ -31,50 +29,18 @@ def eye_aspect_ratio(eye):
 	# return the eye aspect ratio
 	return ear
 
-def detect_blink():
-	# construct the argument parse and parse the arguments
-	ap = argparse.ArgumentParser()
-	ap.add_argument("-p", "--shape-predictor", required=True,
-		help="path to facial landmark predictor")
-	#ap.add_argument("-v", "--video", type=str, default="",
-	#	help="path to input video file")
-	ap.add_argument("-i", "--image", type=str, default="",
-		help="path to input image file")
-	args = vars(ap.parse_args())
-	
-	# define two constants, one for the eye aspect ratio to indicate
-	# blink and then a second constant for the number of consecutive
-	# frames the eye must be below the threshold
+def detect_blink(img, rects):
 	EYE_AR_THRESH = 0.2
-	#EYE_AR_CONSEC_FRAMES = 3
 
 	# initialize the face counters and the total number of blinks
 	COUNTER = 0
 	TOTAL = 0
 
-	# initialize dlib's face detector (HOG-based) and then create
-	# the facial landmark predictor
-	print("[INFO] loading facial landmark predictor...")
-	detector = dlib.get_frontal_face_detector()
-	predictor = dlib.shape_predictor(args["shape_predictor"])
-
 	# grab the indexes of the facial landmarks for the left and
 	# right eye, respectively
 	(lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
 	(rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
-
-	# start image reading
-	print("[INFO] starting image reading...")
-	print(args["image"])
-	#path = glob.glob("/path/to/foler/*.jpg")
-	#images = [cv2.imread(file) for file in glob.glog("path/to/files/*.jpg")]
-	img = cv2.imread(args["image"], cv2.IMREAD_COLOR)
-	#cv2.imshow('original', img)
-
-	# convert image to grayscale
-	gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-	# detect faces in the grayscale frame
-	rects = detector(gray, 0)
+	predictor = dlib.shape_predictor(args["shape_predictor"])
 
 	# loop over the face detections
 	for rect in rects:
@@ -123,3 +89,4 @@ def detect_blink():
 	# do a bit of cleanup
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
+	return 1
