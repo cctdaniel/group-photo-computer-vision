@@ -64,8 +64,7 @@ if __name__ == "__main__":
     model_path = './models/ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/frozen_inference_graph.pb'
     odapi = DetectorAPI(path_to_ckpt=model_path)
     threshold = 0.1
-    sub_photo_path = '/random_pictures'
-    photo_path = '../sample_pictures' + sub_photo_path
+    photo_path = '../sample_pictures/s01_p7'
     cap = cv2.VideoCapture(photo_path + '/%02d.jpg')
     pic_cnt = 0
     while True:
@@ -89,7 +88,7 @@ if __name__ == "__main__":
                 masked_img[y:y+h,x:x+w] = img[y:y+h,x:x+w]
         #masked_img = cv2.resize(masked_img, (original_w, original_h))
         cv2.imshow("preview", masked_img)
-        save_path = './results' + sub_photo_path 
+        save_path = photo_path + '/results'
         if not os.path.exists(save_path):
             os.makedirs(save_path)
         cv2.imwrite(save_path +'/%02d.jpg' %(pic_cnt), masked_img)
