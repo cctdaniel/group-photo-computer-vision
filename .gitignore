@@ -1,6 +1,6 @@
 *.docx
 
-/human_detection/models
-/human_detection/results/random_pictures
+/movement_detection/models
+/movement_detection/results/random_pictures
 /sample_videos
 /sample_pictures/random_pictures
