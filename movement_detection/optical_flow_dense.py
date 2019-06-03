@@ -2,7 +2,7 @@ from PIL import Image
 import os, sys
 import glob
 import numpy as np
-import cv2 as cv
+import cv2
 
 image_list = []
 for filename in glob.glob('../sample_pictures/s01_p7/*.jpg'): # load sample images from folder s01_p7
@@ -38,33 +38,18 @@ list_optical_flows.append(zero_optical_flow)
 
 # calculate optical flow for the rest of the images
 prevImg = image_list_array[0]
-prevImg = cv.cvtColor(prevImg, cv.COLOR_BGR2GRAY)
+prevImg = cv2.cvtColor(prevImg, cv2.COLOR_BGR2GRAY)
 for index in range(1, len(image_list_array)):
     img = image_list_array[index]
-    img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    optical_flow = cv.calcOpticalFlowFarneback(prevImg, img, None, 0.5, 3, 15, 2, 5, 1.2, 0)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    optical_flow = cv2.calcOpticalFlowFarneback(prevImg, img, None, 0.5, 3, 15, 2, 5, 1.2, 0)
     prevImg = img
     list_optical_flows.append(optical_flow)
 
 # print(list_optical_flows[0])
 
-number = 0
-max = 0
 max_velocity_vectors_list = []
-for i in list_optical_flows:
-    for j in i:
-        for k in j:
-            for l in k:
-                number += abs(l)
-            if number > max:
-                max = number
-            number = 0
-    max_velocity_vectors_list.append(max)
-    max = 0
-
-rank_list = max_velocity_vectors_list
-rank_list.sort()
-optimal_rank = rank_list[1]
-optimal_rank_index = max_velocity_vectors_list.index(optimal_rank)
-print(optimal_rank)
-print(optimal_rank_index)
+for i in range(len(list_optical_flows)):
+    max_velocity_vectors_list.append(np.amax(list_optical_flows[i]))
+print(max_velocity_vectors_list)
+print(np.argsort(max_velocity_vectors_list))
