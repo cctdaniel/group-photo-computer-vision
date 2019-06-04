@@ -66,6 +66,10 @@ def detect_blink(img, gray, rects):
 		cv2.drawContours(img, [leftEyeHull], -1, (0, 255, 0), 1)
 		cv2.drawContours(img, [rightEyeHull], -1, (0, 255, 0), 1)
 
+
+		# draw face
+		cv2.rectangle(img, (rect.left(), rect.top()),(rect.right(), rect.bottom()), (0,0,255), 2) 
+
 		# check to see if the eye aspect ratio is below the blink
 		# threshold, and if so, increment the blink frame counter
 		if ear < EYE_AR_THRESH:
