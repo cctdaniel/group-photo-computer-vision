@@ -87,10 +87,10 @@ def detect_blink(img, gray, rects):
 	
 	# show the frame
 	#cv2.imshow("Frame", frame)
-	cv2.imshow("Image", img)
-	key = cv2.waitKey(1) & 0xFF
+	#cv2.imshow("Image", img)
+	#key = cv2.waitKey(1) & 0xFF
 
 	# do a bit of cleanup
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
-	return 1
+	return np.array([TOTAL, COUNTER])
