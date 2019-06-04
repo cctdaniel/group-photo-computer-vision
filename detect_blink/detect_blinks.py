@@ -1,6 +1,6 @@
-# USAGE
 # python detect_blinks.py --shape-predictor shape_predictor_68_face_landmarks.dat --video blink_detection_demo.mp4
 # python detect_blinks.py --shape-predictor shape_predictor_68_face_landmarks.dat
+
 
 # import the necessary packages
 import imutils
@@ -29,7 +29,7 @@ def eye_aspect_ratio(eye):
 	# return the eye aspect ratio
 	return ear
 
-def detect_blink(img, rects):
+def detect_blink(img, gray, rects):
 	EYE_AR_THRESH = 0.2
 
 	# initialize the face counters and the total number of blinks
@@ -40,7 +40,7 @@ def detect_blink(img, rects):
 	# right eye, respectively
 	(lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
 	(rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
-	predictor = dlib.shape_predictor(args["shape_predictor"])
+	predictor = dlib.shape_predictor('./shape_predictor_68_face_landmarks.dat')
 
 	# loop over the face detections
 	for rect in rects:
