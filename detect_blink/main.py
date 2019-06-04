@@ -18,3 +18,7 @@ for img in images:
     print(len(faces))
     
     score_blinks.append(detect_blinks.detect_blink(img, gray, faces)) # need to decide how to evaluate it 
+
+print(score_blinks)
+MIN_INDEX = score_blinks.index(min(score_blinks))
+print(MIN_INDEX)
