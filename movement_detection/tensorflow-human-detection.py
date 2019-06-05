@@ -64,7 +64,7 @@ if __name__ == "__main__":
     model_path = './models/ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/frozen_inference_graph.pb'
     odapi = DetectorAPI(path_to_ckpt=model_path)
     threshold = 0.1
-    photo_path = '../sample_pictures/s01_p7'
+    photo_path = '../sample_pictures/s01'
     cap = cv2.VideoCapture(photo_path + '/%02d.jpg')
     pic_cnt = 0
     while True:

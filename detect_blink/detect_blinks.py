@@ -35,7 +35,7 @@ def detect_blink(img, gray, rects):
 	# initialize the face counters and the total number of blinks
 	COUNTER = 0
 	TOTAL = 0
-
+	RATIO = 0
 	# grab the indexes of the facial landmarks for the left and
 	# right eye, respectively
 	(lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
@@ -78,6 +78,7 @@ def detect_blink(img, gray, rects):
 		# count the number of face.
 		TOTAL += 1
 
+	RATIO = COUNTER/TOTAL
 	# draw the total number of blinks on the frame along with
 	# the computed eye aspect ratio for the frame
 	cv2.putText(img, "Blinks: {}".format(COUNTER), (10, 30),
@@ -93,4 +94,4 @@ def detect_blink(img, gray, rects):
 	# do a bit of cleanup
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
-	return 1
+	return RATIO
